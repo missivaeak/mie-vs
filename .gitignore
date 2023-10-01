@@ -161,3 +161,4 @@ dist
 # various other stuff i believe to be unnecessary
 App_Resources/
 types/
+.editorconfig

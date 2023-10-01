@@ -6,7 +6,7 @@ let home;
 
 beforeEach(function () {
 	const options = {
-		type: "home",
+		type: "start",
 		route: "/",
 		name: "Hem",
 		description: "Hemskärmen"

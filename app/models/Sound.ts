@@ -4,10 +4,18 @@ import { Reference } from "../models/Reference";
 import { ReferenceOptions } from "./ReferenceOptions";
 
 export class Sound extends Reference {
-    private _sound: string
+    private _audio: string
 
-    constructor(options: ReferenceOptions, sound: string) {
+    constructor(options: ReferenceOptions, audio: string) {
         super(options);
-        this._sound = sound;
+        this._audio = audio;
+    }
+
+    get audio() {
+        return this._audio;
+    }
+
+    set audio(audio: string) {
+        this._audio = audio;
     }
 }

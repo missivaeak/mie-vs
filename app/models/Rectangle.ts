@@ -1,8 +1,8 @@
-
+// app/models/Rectangle.ts
 
 import { ShapeInterface } from "./ShapeInterface";
 
-export class Circle implements ShapeInterface {
+export class Rectangle implements ShapeInterface {
     _properties: {width: number, height: number}
 
     constructor(options: {width: number, height: number}) {
@@ -21,6 +21,17 @@ export class Circle implements ShapeInterface {
     }
 
     checkClick(coords: {x: number, y: number}): Boolean {
+        if (coords.x < 0 || coords.y < 0) {
+            return false;
+        }
+
+        const width = this.properties.width;
+        const height = this.properties.height;
+
+        if (coords.x > width || coords.y > height) {
+            return false
+        }
+
         return true;
     }
 }

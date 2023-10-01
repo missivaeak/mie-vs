@@ -20,6 +20,15 @@ export class Circle implements ShapeInterface {
     }
 
     checkClick(coords: {x: number, y: number}): Boolean {
-        return true;
+        const dx = Math.abs(coords.x);
+        const dy = Math.abs(coords.y);
+        const radius = this.properties.radius;
+        const distanceSquared = dx * dx + dy * dy;
+
+        if (distanceSquared <= radius * radius) {
+            return true;
+        }
+
+        return false;
     }
 }

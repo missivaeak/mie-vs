@@ -6,9 +6,9 @@ let myHome;
 
 beforeEach(function () {
 	const options = {
-		type: "home",
+		type: "start",
 		route: "/",
-		name: "Hem",
+		name: "Start",
 		description: "Hemskärmen"
 	};
 	myHome = new StartingPoint(options);
@@ -20,7 +20,7 @@ describe('Testing abstract class Reference via StartingPoint', function () {
 			it('returns', function() {
 				const type = myHome.type;
 				assert.isString(type, "a string");
-				assert.strictEqual(type, "home", "with correct content");
+				assert.strictEqual(type, "start", "with correct content");
 			});
 		});
 		
@@ -36,7 +36,7 @@ describe('Testing abstract class Reference via StartingPoint', function () {
 			it('returns', function() {
 				const name = myHome.name;
 				assert.isString(name, "a string");
-				assert.strictEqual(name, "Hem", "with correct content");
+				assert.strictEqual(name, "Start", "with correct content");
 			});
 		});
 
@@ -74,8 +74,8 @@ describe('Testing abstract class Reference via StartingPoint', function () {
 		
 		describe('set name', function() {
 			it('sets and returns', function() {
-				myHome.name = "Hemmavid";
-				assert.strictEqual(myHome.name, "Hemmavid", "with correct content");
+				myHome.name = "Startmavid";
+				assert.strictEqual(myHome.name, "Startmavid", "with correct content");
 			});
 		});
 

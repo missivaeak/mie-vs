@@ -8,6 +8,6 @@ export interface ReferenceOptions {
     name: string
     description: string
     parent?: Reference
-    image?: Blob
-    sound?: Blob
+    image?: string
+    sound?: string
 }
