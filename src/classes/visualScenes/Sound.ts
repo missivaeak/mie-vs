@@ -4,18 +4,20 @@ import { Reference } from "./Reference"
 import { ReferenceOptions } from "./ReferenceOptions"
 
 export class Sound extends Reference {
-    private _audio: string
+    private _format: string
+    private _source: string
 
-    constructor(options: ReferenceOptions, audio: string) {
+    constructor(options: ReferenceOptions, source: string, format="") {
         super(options)
-        this._audio = audio
+        this._source = source
+        this._format = format
     }
 
-    get audio() {
-        return this._audio
+    get source() {
+        return this._source
     }
 
-    set audio(audio: string) {
-        this._audio = audio
+    set source(source: string) {
+        this._source = source
     }
 }

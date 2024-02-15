@@ -4,7 +4,7 @@
 
 import { it, beforeEach, describe, expect } from '@jest/globals'
 import { StartingPoint } from "../src/classes/visualScenes/StartingPoint"
-import { Place } from '../src/classes/visualScenes/Place'
+import { Place } from '../src/classes/visualScenes/Container'
 
 /**
  * Variables

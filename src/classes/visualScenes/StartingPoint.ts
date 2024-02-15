@@ -2,62 +2,47 @@
 
 import { Reference } from "./Reference"
 import { ReferenceOptions } from "./ReferenceOptions"
-import { Place } from "./Place"
-import { Folder } from "./Folder"
+import { Container } from "./Container"
+import { Image } from "./Image"
 
 export class StartingPoint extends Reference {
-    private _places: Array<Place>
-    private _folders: Array<Folder>
+    private _containers: Array<Container>
+    private _image: Image
 
-    constructor(options: ReferenceOptions) {
+    constructor(options: ReferenceOptions, image: Image) {
         super(options)
-        this._places = []
-        this._folders = []
+        this._containers = []
+        this._image = image
     }
 
-    get places(): Array<Place> {
-        return this._places
+    get containers(): Array<Container> {
+        return this._containers
     }
 
-    addPlace(place: Place) {
-        this._places.push(place)
+    addContainer(container: Container) {
+        this._containers.push(container)
     }
 
-    removePlace(place: Place) {
-        for (const index of this._places.keys()) {
-            if (this._places[index] === place) {
-                this._places.splice(index, 1)
+    removeContainer(container: Container) {
+        for (const index of this._containers.keys()) {
+            if (this._containers[index] === container) {
+                this._containers.splice(index, 1)
                 return
             }
         }
     }
 
-    removePlaceByIndex(index: number) {
-        const place = this._places.splice(index, 1)[0]
+    removeContainerByIndex(index: number) {
+        const container = this._containers.splice(index, 1)[0]
 
-        return place
+        return container
     }
 
-    get folders(): Array<Folder> {
-        return this._folders
+    get image(): Image {
+        return this._image
     }
 
-    addFolder(folder: Folder) {
-        this._folders.push(folder)
-    }
-
-    removeFolder(folder: Folder) {
-        for (const index of this._folders.keys()) {
-            if (this._folders[index] === folder) {
-                this._folders.splice(index, 1)
-                return
-            }
-        }
-    }
-
-    removeFolderByIndex(index: number) {
-        const folder = this._folders.splice(index, 1)[0]
-
-        return folder
+    set image(image: Image) {
+        this._image = image
     }
 }

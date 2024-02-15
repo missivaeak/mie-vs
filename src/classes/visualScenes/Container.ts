@@ -1,26 +1,27 @@
-// app/models/Place.ts
+// app/models/Container.ts
 
 import { Reference } from "./Reference"
 import { ReferenceOptions } from "./ReferenceOptions"
 import { Scene } from "./Scene"
+import { Image } from "./Image"
 
-export class Folder extends Reference {
+export class Container extends Reference {
     private _scenes: Array<Scene>
-    private _image: string
-    private _folders: Array<Folder>
+    private _image: Image
+    private _containers: Array<Container>
 
-    constructor(options: ReferenceOptions, image: string) {
+    constructor(options: ReferenceOptions, image: Image) {
         super(options)
         this._image = image
         this._scenes = []
-        this._folders = []
+        this._containers = []
     }
 
-    get image(): string {
+    get image(): Image {
         return this._image
     }
 
-    set image(image: string) {
+    set image(image: Image) {
         this._image = image
     }
 
@@ -47,26 +48,26 @@ export class Folder extends Reference {
         return scene
     }
 
-    get folders(): Array<Folder> {
-        return this._folders
+    get containers(): Array<Container> {
+        return this._containers
     }
 
-    addFolder(folder: Folder) {
-        this._folders.push(folder)
+    addContainer(container: Container) {
+        this._containers.push(container)
     }
 
-    removeFolder(folder: Folder) {
-        for (const index of this._folders.keys()) {
-            if (this._folders[index] === folder) {
-                this._folders.splice(index, 1)
+    removeContainer(container: Container) {
+        for (const index of this._containers.keys()) {
+            if (this._containers[index] === container) {
+                this._containers.splice(index, 1)
                 return
             }
         }
     }
 
-    removeFolderByIndex(index: number) {
-        const folder = this._folders.splice(index, 1)[0]
+    removeContainerByIndex(index: number) {
+        const container = this._containers.splice(index, 1)[0]
 
-        return folder
+        return container
     }
 }

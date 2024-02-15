@@ -3,22 +3,23 @@
 import { Reference } from "./Reference"
 import { ReferenceOptions } from "./ReferenceOptions"
 import { Region } from "./Region"
+import { Image } from "./Image"
 
 export class Scene extends Reference {
     private _regions: Array<Region>
-    private _image: string
+    private _image: Image
 
-    constructor(options: ReferenceOptions, image: string) {
+    constructor(options: ReferenceOptions, image: Image) {
         super(options)
         this._image = image
         this._regions = []
     }
 
-    get image(): string {
+    get image(): Image {
         return this._image
     }
 
-    set image(image: string) {
+    set image(image: Image) {
         this._image = image
     }
 
