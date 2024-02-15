@@ -3,7 +3,7 @@
  */
 
 import { it, beforeEach, describe, expect } from '@jest/globals'
-import { Rectangle } from "../src/services/Rectangle"
+import { Rectangle } from "../src/classes/visualScenes/Rectangle"
 
 /**
  * Variables

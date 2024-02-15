@@ -3,7 +3,7 @@
  */
 
 import { it, beforeEach, describe, expect } from '@jest/globals'
-import { Sound } from "../src/services/Sound"
+import { Sound } from "../src/classes/visualScenes/Sound"
 import { testingBlobs } from "./testingBlobs.test"
 
 /**

@@ -3,10 +3,10 @@
  */
 
 import { it, beforeEach, describe, expect } from '@jest/globals'
-import { Region } from "../src/services/Region"
-import { Reference } from "../src/services/Reference"
-import { ReferenceOptions } from '../src/services/ReferenceOptions'
-import { ShapeInterface } from "../src/services/ShapeInterface"
+import { Region } from "../src/classes/visualScenes/Region"
+import { Reference } from "../src/classes/visualScenes/Reference"
+import { ReferenceOptions } from '../src/classes/visualScenes/ReferenceOptions'
+import { ShapeInterface } from "../src/classes/visualScenes/ShapeInterface"
 
 /**
  * Variables

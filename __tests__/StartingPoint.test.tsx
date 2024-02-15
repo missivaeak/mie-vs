@@ -3,8 +3,8 @@
  */
 
 import { it, beforeEach, describe, expect } from '@jest/globals'
-import { StartingPoint } from "../src/services/StartingPoint"
-import { Place } from '../src/services/Place'
+import { StartingPoint } from "../src/classes/visualScenes/StartingPoint"
+import { Place } from '../src/classes/visualScenes/Place'
 
 /**
  * Variables

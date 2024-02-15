@@ -1,15 +1,16 @@
 // app/models/Place.ts
 
+import { Folder } from "./Folder"
 import { Reference } from "./Reference"
 import { ReferenceOptions } from "./ReferenceOptions"
 import { Scene } from "./Scene"
 
-export class Folder extends Reference {
+export class Place extends Reference {
     private _scenes: Array<Scene>
-    private _folders: Array<Folder>
     private _image: string
+    private _folders: Array<Folder>
 
-    constructor(options: ReferenceOptions, image: string = "") {
+    constructor(options: ReferenceOptions, image: string) {
         super(options)
         this._image = image
         this._scenes = []

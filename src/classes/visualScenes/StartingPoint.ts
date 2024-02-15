@@ -3,13 +3,16 @@
 import { Reference } from "./Reference"
 import { ReferenceOptions } from "./ReferenceOptions"
 import { Place } from "./Place"
+import { Folder } from "./Folder"
 
 export class StartingPoint extends Reference {
     private _places: Array<Place>
+    private _folders: Array<Folder>
 
     constructor(options: ReferenceOptions) {
         super(options)
         this._places = []
+        this._folders = []
     }
 
     get places(): Array<Place> {
@@ -33,5 +36,28 @@ export class StartingPoint extends Reference {
         const place = this._places.splice(index, 1)[0]
 
         return place
+    }
+
+    get folders(): Array<Folder> {
+        return this._folders
+    }
+
+    addFolder(folder: Folder) {
+        this._folders.push(folder)
+    }
+
+    removeFolder(folder: Folder) {
+        for (const index of this._folders.keys()) {
+            if (this._folders[index] === folder) {
+                this._folders.splice(index, 1)
+                return
+            }
+        }
+    }
+
+    removeFolderByIndex(index: number) {
+        const folder = this._folders.splice(index, 1)[0]
+
+        return folder
     }
 }

@@ -3,11 +3,11 @@
  */
 
 import { it, beforeEach, describe, expect } from '@jest/globals'
-import { Scene } from "../src/services/Scene"
-import { ShapeInterface } from "../src/services/ShapeInterface"
-import { Reference } from '../src/services/Reference'
-import { ReferenceOptions } from '../src/services/ReferenceOptions'
-import { Region } from '../src/services/Region'
+import { Scene } from "../src/classes/visualScenes/Scene"
+import { ShapeInterface } from "../src/classes/visualScenes/ShapeInterface"
+import { Reference } from '../src/classes/visualScenes/Reference'
+import { ReferenceOptions } from '../src/classes/visualScenes/ReferenceOptions'
+import { Region } from '../src/classes/visualScenes/Region'
 import { testingBlobs } from "./testingBlobs.test"
 
 /**
