@@ -3,16 +3,20 @@ import { useContext, } from 'react'
 import { View, Button } from 'react-native'
 import { NavigationContainer, useNavigation } from '@react-navigation/native'
 import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack'
-import Debug from '../screens/Debug'
+import DebugDefault from '../screens/DebugDefault'
 import Home from '../screens/Home'
-import Database from '../screens/Database'
+import DebugGallery from '../screens/DebugGallery'
+import DebugAudio from '../screens/DebugAudio'
+import DebugCamera from '../screens/DebugCamera'
 import Loading from '../components/Loading'
 import GlobalContext from '../contexts/GlobalContext'
 
 type RootStackParamList = {
   Home: undefined
   Debug: undefined
-  Database: undefined
+  Gallery: undefined
+  Audio: undefined
+  Camera: undefined
 }
 
 type ScreenProps = NativeStackScreenProps<RootStackParamList>
@@ -32,22 +36,34 @@ const BottomTabMenu = () => {
         flexDirection: 'row',
       }}>
       <Button
-        title="Database"
-        onPress={() =>
-          navigation.navigate('Database')
-        }
-      />
-      <Button
         title="Debug"
         onPress={() =>
           navigation.navigate('Debug')
+        }
+      />
+      <Button
+        title="Gallery"
+        onPress={() =>
+          navigation.navigate('Gallery')
+        }
+      />
+      <Button
+        title="Audio"
+        onPress={() =>
+          navigation.navigate('Audio')
+        }
+      />
+      <Button
+        title="Camera"
+        onPress={() =>
+          navigation.navigate('Camera')
         }
       />
     </View>
   )
 }
 
-const Navigation = () => {
+export default () => {
   const { globalState, setGlobalState } = useContext(GlobalContext)
 
   if (!globalState || !globalState.database) {
@@ -60,13 +76,15 @@ const Navigation = () => {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="Database" component={Database} />
-        <Stack.Screen name="Debug" component={Debug} />
+        <Stack.Screen name="Gallery" component={DebugGallery} />
+        <Stack.Screen name="Debug" component={DebugDefault} />
+        <Stack.Screen name="Audio" component={DebugAudio} />
+        <Stack.Screen name="Camera" component={DebugCamera} />
       </Stack.Navigator>
 
       <BottomTabMenu />
     </NavigationContainer>
   )
 }
+
 export type { RootStackParamList, ScreenProps }
-export default Navigation

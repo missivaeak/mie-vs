@@ -3,7 +3,7 @@
 import { Reference } from "./Reference"
 import { ReferenceOptions } from "./ReferenceOptions"
 import { Container } from "./Container"
-import { Image } from "./Image"
+import { Image } from "../Image"
 
 export class StartingPoint extends Reference {
     private _containers: Array<Container>

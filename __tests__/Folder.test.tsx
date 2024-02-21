@@ -4,7 +4,7 @@
 
 import { it, beforeEach, describe, expect } from '@jest/globals'
 import { Folder } from "../src/classes/visualScenes/Folder"
-import { Scene } from "../src/classes/visualScenes/Scene"
+import { Scene } from "../src/classes/references/Scene"
 import { testingBlobs } from "./testingBlobs.test"
 
 /**

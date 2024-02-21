@@ -3,7 +3,7 @@
 import { Reference } from "./Reference"
 import { ReferenceOptions } from "./ReferenceOptions"
 import { Scene } from "./Scene"
-import { Image } from "./Image"
+import { Image } from "../Image"
 
 export class Container extends Reference {
     private _scenes: Array<Scene>

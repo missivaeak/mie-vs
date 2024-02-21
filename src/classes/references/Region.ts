@@ -1,7 +1,7 @@
 // app/models/Region.ts
 
 import { Reference } from "./Reference"
-import { ShapeInterface } from "./ShapeInterface"
+import { ShapeInterface } from "../shapes/ShapeInterface"
 
 export class Region {
     private _xPos: number

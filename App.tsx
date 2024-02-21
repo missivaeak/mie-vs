@@ -1,7 +1,6 @@
 import * as React from 'react';
 import GlobalContext from './src/contexts/GlobalContext';
 import Navigation from './src/navigation/Navigation';
-import GlobalStateType from './src/types/GlobalStateType';
 import GlobalContextType from './src/types/GlobalContextType';
 
 const App = () => {

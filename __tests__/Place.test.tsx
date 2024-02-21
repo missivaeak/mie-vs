@@ -3,8 +3,8 @@
  */
 
 import { it, beforeEach, describe, expect } from '@jest/globals'
-import { Place } from "../src/classes/visualScenes/Container"
-import { Scene } from "../src/classes/visualScenes/Scene"
+import { Place } from "../src/classes/references/Container"
+import { Scene } from "../src/classes/references/Scene"
 import { testingBlobs } from "./testingBlobs.test"
 
 /**

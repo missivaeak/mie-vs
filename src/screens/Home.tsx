@@ -8,16 +8,18 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { Text, View, Button, Image, FlatList, Pressable } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
+import RNFetchBlob from 'react-native-blob-util'
 
-import type ImageArrayType from '../types/ImageArrayType'
+import type ImageType from '../types/ImageType'
 
 import { ScreenProps } from '../navigation/Navigation'
 import GlobalContext from '../contexts/GlobalContext'
+import EnvVars from '../constants/EnvVars'
 
-const StartingPointImage = (props: {images: ImageArrayType|undefined}) => {
+const StartingPointImage = (props: {imageSource: string}) => {
   let component = (<></>)
 
-  if (props.images && props.images[0]) {
+  if (props.imageSource) {
     component = (
         <Image
           style={{
@@ -26,7 +28,7 @@ const StartingPointImage = (props: {images: ImageArrayType|undefined}) => {
             resizeMode: 'contain',
           }}
           source={{
-            uri: props.images[2].source
+            uri: EnvVars.baseDir + props.imageSource
           }}
         />
     )
@@ -36,13 +38,13 @@ const StartingPointImage = (props: {images: ImageArrayType|undefined}) => {
 }
 
 const Home = () => {
-  const [images, setImages] = useState<ImageArrayType>()
+  const [image, setImage] = useState<ImageType>()
   const { globalState, setGlobalState } = useContext(GlobalContext)
   const navigation = useNavigation<ScreenProps['navigation']>()
 
   useEffect(() => {
-    globalState?.database?.getImages().then((images) => {
-      setImages(images)
+    globalState?.database?.getStartingPointImage().then((image) => {
+      setImage(image)
       return
     })
   }, [])
@@ -57,14 +59,14 @@ const Home = () => {
 
       <Pressable
         onPress={() => {
-          navigation.navigate('Database')
+          navigation.navigate('Gallery')
         }}
         style={{
           alignItems: 'center'
         }}
         >
 
-        <StartingPointImage images={images} />
+        <StartingPointImage imageSource={image ? image.source : ''} />
 
         <Text>Börja använda appen.</Text>
       </Pressable>

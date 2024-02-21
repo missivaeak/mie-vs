@@ -3,7 +3,7 @@
  */
 
 import { it, beforeEach, describe, expect } from '@jest/globals';
-import { Circle } from "../src/classes/visualScenes/Circle"
+import { Circle } from "../src/classes/shapes/Circle"
 
 /**
  * Variables

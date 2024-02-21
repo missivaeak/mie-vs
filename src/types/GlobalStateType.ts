@@ -1,4 +1,4 @@
-import Database from "../classes/Database"
+import Database from "../services/Database"
 
 type GlobalStateType = {
     database: Database | null

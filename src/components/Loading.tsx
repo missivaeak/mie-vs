@@ -5,20 +5,41 @@
  * @format
  */
 
-import { useState, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import { Text, View } from 'react-native'
+
 import GlobalContext from '../contexts/GlobalContext'
-import Database from '../classes/Database'
+import Database from '../services/Database'
+import Initialiser from '../services/Initialiser'
+import Permitter from '../services/Permitter'
 
 const Loading = () => {
   const globalContext = useContext(GlobalContext)
+  let database: Database
 
-  Database.getDBConnection().then((connection) => {
-    const database = new Database(connection)
-    database.createTable().then(() => {
-      globalContext.setGlobalState({database})
-    })
-  })
+  // check database connection
+  useEffect(() => {
+    if (!globalContext.globalState.database) {
+      database = new Database()
+  
+      database.ping().then(async (result) => {
+        if (result.firstRun === "true") {
+          console.log('first run, running initialiser')
+          await Initialiser.run(database)
+        }
+        globalContext.setGlobalState({database})
+        return
+      })
+    }
+  }, [])
+
+  // check permissions
+  useEffect(() => {
+    Permitter.checkAll().then(result => 
+      console.log(result)
+    )
+  },[])
+
 
   return (
     <View

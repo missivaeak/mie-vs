@@ -3,7 +3,7 @@
  */
 
 import { it, beforeEach, describe, expect } from '@jest/globals'
-import { StartingPoint } from "../src/classes/visualScenes/StartingPoint"
+import { StartingPoint } from "../src/classes/references/StartingPoint"
 
 /**
  * Variables

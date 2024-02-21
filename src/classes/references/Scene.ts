@@ -3,7 +3,7 @@
 import { Reference } from "./Reference"
 import { ReferenceOptions } from "./ReferenceOptions"
 import { Region } from "./Region"
-import { Image } from "./Image"
+import { Image } from "../Image"
 
 export class Scene extends Reference {
     private _regions: Array<Region>

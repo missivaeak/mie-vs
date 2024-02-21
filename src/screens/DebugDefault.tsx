@@ -56,7 +56,7 @@ function Section({children, title}: SectionProps): React.JSX.Element {
   )
 }
 
-function Debug (): React.JSX.Element {
+export default (): React.JSX.Element => {
   const isDarkMode = useColorScheme() === 'dark'
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
@@ -114,5 +114,3 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
 })
-
-export default Debug
