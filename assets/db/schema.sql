@@ -6,18 +6,18 @@
 -- Main tables
 --
 
-DROP TABLE IF EXISTS 'image';
+DROP TABLE IF EXISTS 'picture';
 DROP TABLE IF EXISTS 'container';
 DROP TABLE IF EXISTS 'scene';
 DROP TABLE IF EXISTS 'region';
 DROP TABLE IF EXISTS 'sound';
 DROP TABLE IF EXISTS 'setting';
 
--- images
+-- pictures
 -- format should be 'png' for sources
--- starting with 'data:image/png;base64,'
+-- starting with 'data:picture/png;base64,'
 -- other formats may be implemented later
-CREATE TABLE 'image' (
+CREATE TABLE 'picture' (
     'id' INTEGER PRIMARY KEY AUTOINCREMENT,
     'format' VARCHAR(20) NOT NULL,
     'source' VARCHAR(20) NOT NULL
@@ -83,30 +83,30 @@ CREATE TABLE 'setting' (
 -- Cross tables
 --
 
-DROP TABLE IF EXISTS 'image_x_container';
-DROP TABLE IF EXISTS 'image_x_scene';
+DROP TABLE IF EXISTS 'picture_x_container';
+DROP TABLE IF EXISTS 'picture_x_scene';
 DROP TABLE IF EXISTS 'container_x_scene';
 DROP TABLE IF EXISTS 'container_x_container';
 DROP TABLE IF EXISTS 'startingpoint_container';
-DROP TABLE IF EXISTS 'startingpoint_image';
+DROP TABLE IF EXISTS 'startingpoint_picture';
 
--- image-container cross table
-CREATE TABLE 'image_x_container' (
-    'image_id' INTEGER,
+-- picture-container cross table
+CREATE TABLE 'picture_x_container' (
+    'picture_id' INTEGER,
     'container_id' INTEGER,
 
-    PRIMARY KEY ('image_id', 'container_id')
-    FOREIGN KEY ('image_id') REFERENCES 'image' ('id'),
+    PRIMARY KEY ('picture_id', 'container_id')
+    FOREIGN KEY ('picture_id') REFERENCES 'picture' ('id'),
     FOREIGN KEY ('container_id') REFERENCES 'container' ('id')
 );
 
--- image-scene cross table
-CREATE TABLE 'image_x_scene' (
-    'image_id' INTEGER,
+-- picture-scene cross table
+CREATE TABLE 'picture_x_scene' (
+    'picture_id' INTEGER,
     'scene_id' INTEGER,
 
-    PRIMARY KEY ('image_id', 'scene_id'),
-    FOREIGN KEY ('image_id') REFERENCES 'image' ('id'),
+    PRIMARY KEY ('picture_id', 'scene_id'),
+    FOREIGN KEY ('picture_id') REFERENCES 'picture' ('id'),
     FOREIGN KEY ('scene_id') REFERENCES 'scene' ('id')
 );
 
@@ -138,11 +138,11 @@ CREATE TABLE 'startingpoint_container' (
     FOREIGN KEY ('container_id') REFERENCES 'container' ('id')
 );
 
--- startingpoint-image cross table
+-- startingpoint-picture cross table
 -- this table should only have one row
--- since the starting point can only have one image
-CREATE TABLE 'startingpoint_image' (
-    'image_id' INTEGER,
+-- since the starting point can only have one picture
+CREATE TABLE 'startingpoint_picture' (
+    'picture_id' INTEGER,
 
-    FOREIGN KEY ('image_id') REFERENCES 'image' ('id')
+    FOREIGN KEY ('picture_id') REFERENCES 'picture' ('id')
 );

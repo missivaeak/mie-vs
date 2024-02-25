@@ -1,26 +1,26 @@
 // app/models/Scene.ts
 
-import { Reference } from "./Reference"
-import { ReferenceOptions } from "./ReferenceOptions"
-import { Region } from "./Region"
-import { Image } from "../Image"
+import Reference from "./Reference"
+import ReferenceOptions from "./ReferenceOptions"
+import Region from "./Region"
+import Picture from "../Picture"
 
-export class Scene extends Reference {
+export default class Scene extends Reference {
     private _regions: Array<Region>
-    private _image: Image
+    private _picture: Picture
 
-    constructor(options: ReferenceOptions, image: Image) {
+    constructor(options: ReferenceOptions, picture: Picture) {
         super(options)
-        this._image = image
+        this._picture = picture
         this._regions = []
     }
 
-    get image(): Image {
-        return this._image
+    get picture(): Picture {
+        return this._picture
     }
 
-    set image(image: Image) {
-        this._image = image
+    set picture(picture: Picture) {
+        this._picture = picture
     }
 
     get regions(): Array<Region> {

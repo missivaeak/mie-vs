@@ -12,40 +12,20 @@ import RNFetchBlob from 'react-native-blob-util'
 
 import type ImageType from '../types/ImageType'
 import type { RootStackScreenProps } from '../navigation/types'
-import type { Container } from '../classes/references/Container'
+import Container from '../classes/references/Container'
+import Picture from '../classes/Picture'
+import StartingPointPicture from '../components/StartingPointPicture'
 
 import GlobalContext from '../contexts/GlobalContext'
 import EnvVars from '../constants/EnvVars'
 
-const StartingPointImage = (props: {imageSource: string}) => {
-  let component = (<></>)
-
-  if (props.imageSource) {
-    component = (
-        <Image
-          style={{
-            width: '60%',
-            aspectRatio: 1,
-            resizeMode: 'contain',
-          }}
-          source={{
-            uri: EnvVars.baseDir + props.imageSource
-          }}
-        />
-    )
-  }
-
-  return component
-}
-
-const Home = ({ navigation, route }: RootStackScreenProps<'Home'>) => {
-  const [ image, setImage ] = useState<ImageType>()
-  const { globalState, setGlobalState } = useContext(GlobalContext)
+export default function Home({ navigation, route }: RootStackScreenProps<'Home'>) {
   const [ startingPoint, setStartingPoint ] = useState<Container>()
+  const { globalState, setGlobalState } = useContext(GlobalContext)
 
   useEffect(() => {
-    globalState?.database?.getStartingPointImage().then((image) => {
-      setImage(image)
+    globalState?.database?.getStartingPoint().then((result) => {
+      setStartingPoint(result)
       return
     })
   }, [])
@@ -58,21 +38,21 @@ const Home = ({ navigation, route }: RootStackScreenProps<'Home'>) => {
         alignItems: 'center',
       }}>
 
-      <Pressable
-        onPress={() => {
-          navigation.navigate('StartingPoint')
-        }}
-        style={{
-          alignItems: 'center'
-        }}
-        >
+      {startingPoint ? 
+        <Pressable
+          onPress={() => {
+            navigation.navigate('Folder', {folder: startingPoint})
+          }}
+          style={{
+            alignItems: 'center'
+          }}
+          >
 
-        <StartingPointImage imageSource={image ? image.source : ''} />
+          <StartingPointPicture source={startingPoint.picture.source} />
 
-        <Text>Börja använda appen.</Text>
-      </Pressable>
+          <Text>Börja använda appen.</Text>
+        </Pressable>
+      : <></>}
     </View>
   )
 }
-
-export default Home

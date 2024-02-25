@@ -1,7 +1,7 @@
 // app/models/Sound.ts
 
-import { Reference } from "./Reference"
-import { ReferenceOptions } from "./ReferenceOptions"
+import Reference from "./Reference"
+import ReferenceOptions from "./ReferenceOptions"
 
 export class Sound extends Reference {
     private _format: string

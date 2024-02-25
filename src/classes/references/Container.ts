@@ -1,28 +1,28 @@
 // app/models/Container.ts
 
-import { Reference } from "./Reference"
-import { ReferenceOptions } from "./ReferenceOptions"
-import { Scene } from "./Scene"
-import { Image } from "../Image"
+import Reference from "./Reference"
+import ReferenceOptions from "./ReferenceOptions"
+import Scene from "./Scene"
+import Picture from "../Picture"
 
-export class Container extends Reference {
+export default class Container extends Reference {
     protected _scenes: Array<Scene>
-    protected _image: Image
+    protected _picture: Picture
     protected _containers: Array<Container>
 
-    constructor(options: ReferenceOptions, image: Image) {
+    constructor(options: ReferenceOptions, picture: Picture, databaseId: number) {
         super(options)
-        this._image = image
+        this._picture = picture
         this._scenes = []
         this._containers = []
     }
 
-    get image(): Image {
-        return this._image
+    get picture(): Picture {
+        return this._picture
     }
 
-    set image(image: Image) {
-        this._image = image
+    set picture(picture: Picture) {
+        this._picture = picture
     }
 
     get scenes(): Array<Scene> {

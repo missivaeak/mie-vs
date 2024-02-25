@@ -7,12 +7,9 @@
 
 import React, { useState, useContext, useEffect } from 'react'
 import { Text, View, Button, Image, Pressable, StyleSheet, ScrollView } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
-import IonIcon from 'react-native-vector-icons/Ionicons'
-import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 
-import type ImageType from '../types/ImageType'
+import type Picture from '../classes/Picture'
 
 import GlobalContext from '../contexts/GlobalContext'
 import EnvVars from '../constants/EnvVars'
@@ -42,13 +39,13 @@ const ContainerImage = (props: {imageSource: string}) => {
 export default function EditFolder(
   {route, navigation}: RootStackScreenProps<'EditFolder'>
 ) {
-  const [image, setImage] = useState<ImageType>()
+  const [picture, setPicture] = useState<Picture>()
   const { globalState, setGlobalState } = useContext(GlobalContext)
   // console.log(folder)
 
   useEffect(() => {
-    globalState?.database?.getStartingPointImage().then((image) => {
-      setImage(image)
+    globalState?.database?.getStartingPointPicture().then((picture) => {
+      setPicture(picture)
       return
     })
   }, [])

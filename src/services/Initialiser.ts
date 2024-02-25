@@ -6,7 +6,7 @@ import EnvVars from "../constants/EnvVars"
 // import images from '../assets/index'
 
 // default images
-const images = [
+const pictures = [
   'city.png',
   'hotel.png',
   'house.png',
@@ -16,12 +16,12 @@ const images = [
 
 export default class Initialiser {
   static async run(db: Database) {
-    for (let i = 0; i < images.length; i++) {
+    for (let i = 0; i < pictures.length; i++) {
       const base64 = await RNFetchBlob.fs.readFile(
-        `bundle-assets://${images[i]}`, 'base64'
+        `bundle-assets://${pictures[i]}`, 'base64'
         )
-      await RNFetchBlob.fs.writeFile(EnvVars.bareBaseDir + images[i], base64, 'base64')
-      await db.saveImage(images[i], 'png')
+      await RNFetchBlob.fs.writeFile(EnvVars.bareBaseDir + pictures[i], base64, 'base64')
+      await db.savePicture(pictures[i], 'png')
     }
 
     console.log("1")
@@ -31,7 +31,7 @@ export default class Initialiser {
     //     .then((files) => {
     //         console.log(files)
     //     })
-    await db.setStartingPointImage(3)
+    await db.setStartingPointPicture(3)
     
     
     console.log("2")

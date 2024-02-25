@@ -1,6 +1,6 @@
-// app/models/Image.ts
+// app/models/Picture.ts
 
-export class Image {
+export default class Picture {
     private _format: string
     private _source: string
     private _databaseId: number

@@ -1,8 +1,8 @@
 // app/models/Circle.ts
 
-import { ShapeInterface } from "./ShapeInterface"
+import ShapeInterface from "./ShapeInterface"
 
-export class Circle implements ShapeInterface {
+export default class Circle implements ShapeInterface {
     _properties: {radius: number}
 
     constructor(options: {radius: number}) {

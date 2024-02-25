@@ -1,8 +1,8 @@
 // app/models/Rectangle.ts
 
-import { ShapeInterface } from "./ShapeInterface"
+import ShapeInterface from "./ShapeInterface"
 
-export class Rectangle implements ShapeInterface {
+export default class Rectangle implements ShapeInterface {
     _properties: {width: number, height: number}
 
     constructor(options: {width: number, height: number}) {

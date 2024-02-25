@@ -3,6 +3,7 @@
         "aoeaoe",
         "audio",
         "AUTOINCREMENT",
+        "classes",
         "contexts",
         "editing",
         "Gallery",
@@ -16,6 +17,8 @@
         "other",
         "permit",
         "Permitter",
+        "pictures",
+        "Pictures",
         "place",
         "places",
         "Pressable",
@@ -32,7 +35,9 @@
         "should",
         "Shown",
         "siginificant",
+        "startingpoint",
         "stroage",
+        "tbls",
         "wrapper"
     ]
 }

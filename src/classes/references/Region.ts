@@ -1,9 +1,9 @@
 // app/models/Region.ts
 
-import { Reference } from "./Reference"
-import { ShapeInterface } from "../shapes/ShapeInterface"
+import Reference from "./Reference"
+import ShapeInterface from "../shapes/ShapeInterface"
 
-export class Region {
+export default class Region {
     private _xPos: number
     private _yPos: number
     private _shape: ShapeInterface

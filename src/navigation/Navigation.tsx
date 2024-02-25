@@ -9,7 +9,6 @@ import DebugAudio from '../screens/debug/DebugAudio'
 import DebugCamera from '../screens/debug/DebugCamera'
 
 import Home from '../screens/Home'
-import StartingPoint from '../screens/StartingPoint'
 import Folder from '../screens/Folder'
 import EditFolder from '../screens/EditFolder'
 import Place from '../screens/Place'
@@ -85,15 +84,6 @@ export default () => {
           component={Home}
           options={{
             headerShown: false
-          }}
-          />
-
-        <Stack.Screen
-          name="StartingPoint"
-          component={StartingPoint}
-          options={{
-            title: 'Hem',
-            headerRight: FolderSettingsButton
           }}
           />
 

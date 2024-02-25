@@ -15,10 +15,10 @@ import GlobalContext from '../contexts/GlobalContext'
 import EnvVars from '../constants/EnvVars'
 import { RootStackScreenProps } from '../navigation/types'
 
-const ContainerImage = (props: {imageSource: string}) => {
+const ContainerImage = (props: {source: string}) => {
   let component = (<></>)
 
-  if (props.imageSource) {
+  if (props.source) {
     component = (
         <Image
           style={{
@@ -27,7 +27,7 @@ const ContainerImage = (props: {imageSource: string}) => {
             resizeMode: 'contain',
           }}
           source={{
-            uri: EnvVars.baseDir + props.imageSource
+            uri: EnvVars.baseDir + props.source
           }}
         />
     )
@@ -37,14 +37,10 @@ const ContainerImage = (props: {imageSource: string}) => {
 }
 
 export default function Folder({navigation, route}: RootStackScreenProps<'Folder'>) {
-  const [image, setImage] = useState<ImageType>()
-  const { globalState, setGlobalState } = useContext(GlobalContext)
+  const folder = route.params.folder
 
   useEffect(() => {
-    globalState?.database?.getStartingPointImage().then((image) => {
-      setImage(image)
-      return
-    })
+    navigation.setOptions({title: folder.name})
   }, [])
 
   return (
