@@ -8,10 +8,10 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { Text, Button, Image, FlatList, ScrollView } from 'react-native'
 
-import type ImageType from '../types/ImageType'
+import type ImageType from '../../types/ImageType'
 
-import GlobalContext from '../contexts/GlobalContext'
-import EnvVars from '../constants/EnvVars'
+import GlobalContext from '../../contexts/GlobalContext'
+import EnvVars from '../../constants/EnvVars'
 
 export default () => {
   const [images, setImages] = useState<Array<ImageType>>([])
@@ -27,8 +27,12 @@ export default () => {
   return (
     <ScrollView
       contentContainerStyle={{
+        marginVertical: 20,
         justifyContent: 'center',
         alignItems: 'center',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        gap: 5
       }}
       style={{
         flex: 1,
@@ -38,9 +42,9 @@ export default () => {
       {images.map((item)=> {
         return (<Image
           style={{
-            width: 100,
-            height: 100,
-            resizeMode: 'contain',
+            width: '30%',
+            aspectRatio: 1,
+            resizeMode: item.format === 'png' ? 'contain' : 'cover',
           }}
           source={{
             uri: EnvVars.baseDir + item.source

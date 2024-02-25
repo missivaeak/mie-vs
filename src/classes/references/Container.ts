@@ -6,9 +6,9 @@ import { Scene } from "./Scene"
 import { Image } from "../Image"
 
 export class Container extends Reference {
-    private _scenes: Array<Scene>
-    private _image: Image
-    private _containers: Array<Container>
+    protected _scenes: Array<Scene>
+    protected _image: Image
+    protected _containers: Array<Container>
 
     constructor(options: ReferenceOptions, image: Image) {
         super(options)

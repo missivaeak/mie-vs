@@ -1,30 +1,31 @@
-
-import { useContext, } from 'react'
+import { useContext, useState } from 'react'
 import { View, Button } from 'react-native'
 import { NavigationContainer, useNavigation } from '@react-navigation/native'
-import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack'
-import DebugDefault from '../screens/DebugDefault'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+
+import DebugDefault from '../screens/debug/DebugDefault'
+import DebugGallery from '../screens/debug/DebugGallery'
+import DebugAudio from '../screens/debug/DebugAudio'
+import DebugCamera from '../screens/debug/DebugCamera'
+
 import Home from '../screens/Home'
-import DebugGallery from '../screens/DebugGallery'
-import DebugAudio from '../screens/DebugAudio'
-import DebugCamera from '../screens/DebugCamera'
-import Loading from '../components/Loading'
+import StartingPoint from '../screens/StartingPoint'
+import Folder from '../screens/Folder'
+import EditFolder from '../screens/EditFolder'
+import Place from '../screens/Place'
+import EditPlace from '../screens/EditPlace'
+import Scene from '../screens/Scene'
+import EditScene from '../screens/EditScene'
+import Loading from '../screens/Loading'
+import Spinner from '../components/Spinner'
 import GlobalContext from '../contexts/GlobalContext'
-
-type RootStackParamList = {
-  Home: undefined
-  Debug: undefined
-  Gallery: undefined
-  Audio: undefined
-  Camera: undefined
-}
-
-type ScreenProps = NativeStackScreenProps<RootStackParamList>
+import FolderSettingsButton from '../components/FolderSettingsButton'
+import type { RootStackNavigationProp, RootStackParamList } from './types'
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
 
-const BottomTabMenu = () => {
-  const navigation = useNavigation<ScreenProps['navigation']>()
+const DebugMenu = () => {
+  const navigation = useNavigation<RootStackNavigationProp>()
 
   return (
     <View
@@ -64,27 +65,98 @@ const BottomTabMenu = () => {
 }
 
 export default () => {
+  const [ isLoading, setIsLoading ] = useState(true)
   const { globalState, setGlobalState } = useContext(GlobalContext)
 
-  if (!globalState || !globalState.database) {
+  if (isLoading) {
     return (
-      <Loading />
+      <Loading
+        setIsLoading={setIsLoading}
+        isLoading={isLoading}
+        />
     )
   }
 
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen
+          name="Home"
+          component={Home}
+          options={{
+            headerShown: false
+          }}
+          />
+
+        <Stack.Screen
+          name="StartingPoint"
+          component={StartingPoint}
+          options={{
+            title: 'Hem',
+            headerRight: FolderSettingsButton
+          }}
+          />
+
+        <Stack.Screen
+          name="EditFolder"
+          component={EditFolder}
+          options={{
+            title: 'Redigera mapp'
+          }}
+          />
+
+        <Stack.Screen
+          name="Folder"
+          component={Folder}
+          options={{
+            title: 'todo: mappnamn'
+          }}
+          />
+
+        <Stack.Screen
+          name="EditPlace"
+          component={EditPlace}
+          options={{
+            title: 'todo: mappnamn'
+          }}
+          />
+
+        <Stack.Screen
+          name="Place"
+          component={Place}
+          options={{
+            title: 'todo: mappnamn'
+          }}
+          />
+
+        <Stack.Screen
+          name="EditScene"
+          component={EditScene}
+          options={{
+            title: 'todo: mappnamn'
+          }}
+          />
+
+        <Stack.Screen
+          name="Scene"
+          component={Scene}
+          options={{
+            title: 'todo: mappnamn'
+          }}
+          />
+
         <Stack.Screen name="Gallery" component={DebugGallery} />
         <Stack.Screen name="Debug" component={DebugDefault} />
         <Stack.Screen name="Audio" component={DebugAudio} />
         <Stack.Screen name="Camera" component={DebugCamera} />
       </Stack.Navigator>
 
-      <BottomTabMenu />
+      <DebugMenu />
+
+      {globalState.spinnerActive ? <Spinner /> : <></>}
+
     </NavigationContainer>
   )
 }
 
-export type { RootStackParamList, ScreenProps }
+export type { RootStackParamList }

@@ -4,7 +4,10 @@ import Navigation from './src/navigation/Navigation';
 import GlobalContextType from './src/types/GlobalContextType';
 
 const App = () => {
-  const [ globalState, setGlobalState ] = React.useState({database: null})
+  const [ globalState, setGlobalState ] = React.useState({
+    database: null,
+    spinnerActive: false
+  })
 
   return (
     <>

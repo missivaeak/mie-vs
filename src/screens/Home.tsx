@@ -11,8 +11,9 @@ import { useNavigation } from '@react-navigation/native'
 import RNFetchBlob from 'react-native-blob-util'
 
 import type ImageType from '../types/ImageType'
+import type { RootStackScreenProps } from '../navigation/types'
+import type { Container } from '../classes/references/Container'
 
-import { ScreenProps } from '../navigation/Navigation'
 import GlobalContext from '../contexts/GlobalContext'
 import EnvVars from '../constants/EnvVars'
 
@@ -37,10 +38,10 @@ const StartingPointImage = (props: {imageSource: string}) => {
   return component
 }
 
-const Home = () => {
-  const [image, setImage] = useState<ImageType>()
+const Home = ({ navigation, route }: RootStackScreenProps<'Home'>) => {
+  const [ image, setImage ] = useState<ImageType>()
   const { globalState, setGlobalState } = useContext(GlobalContext)
-  const navigation = useNavigation<ScreenProps['navigation']>()
+  const [ startingPoint, setStartingPoint ] = useState<Container>()
 
   useEffect(() => {
     globalState?.database?.getStartingPointImage().then((image) => {
@@ -59,7 +60,7 @@ const Home = () => {
 
       <Pressable
         onPress={() => {
-          navigation.navigate('Gallery')
+          navigation.navigate('StartingPoint')
         }}
         style={{
           alignItems: 'center'

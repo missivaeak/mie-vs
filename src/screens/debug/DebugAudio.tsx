@@ -7,8 +7,8 @@
 
 import React, { useState, useContext, useEffect } from 'react'
 import { Text, View, Button, Image, FlatList, ScrollView } from 'react-native'
-import Recorder from '../services/Recorder'
-import Player from '../services/Player'
+import Recorder from '../../services/Recorder'
+import Player from '../../services/Player'
 
 export default () => {
   // const navigation = useNavigation<ScreenProps['navigation']>()

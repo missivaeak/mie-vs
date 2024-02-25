@@ -24,6 +24,8 @@ export default class Initialiser {
       await db.saveImage(images[i], 'png')
     }
 
+    console.log("1")
+
     // await RNFetchBlob.fs.ls(cacheDir)
     //     // files will an array contains filenames
     //     .then((files) => {
@@ -31,7 +33,12 @@ export default class Initialiser {
     //     })
     await db.setStartingPointImage(3)
     
+    
+    console.log("2")
 
     await db.setSetting("first_run", "false")
+
+    
+    console.log("3")
   }
 }

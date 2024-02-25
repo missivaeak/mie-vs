@@ -72,11 +72,17 @@ export default class Database {
     return images
   }
 
-  async saveImage(filename: string, format: string) {
-    const insertQuery =
+  async saveImage(path: string, format: string) {
+    const query =
       `INSERT INTO image(format, source) values(?, ?)`
-  
-    return (await this.connection).executeSql(insertQuery, [format, filename])
+
+    const results = await (await this.connection).executeSql(query, [format, path])
+
+    return {
+      id: results[0].insertId as number,
+      format,
+      source: path
+    }
   }
 
   // async createTable() {
