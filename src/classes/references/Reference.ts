@@ -1,5 +1,6 @@
 // app/models/Reference.ts
 
+import Database from "../../services/Database"
 import Container from "./Container"
 import ReferenceOptions from "./ReferenceOptions"
 
@@ -7,13 +8,15 @@ export default abstract class Reference {
   private _type: string
   private _name: string
   private _description: string
-  private parent: Reference | undefined
+  private _databaseId: number
+  private _parent: Reference | undefined
 
-  constructor(options: ReferenceOptions) {
+  constructor(options: ReferenceOptions, databaseId: number) {
     this._type = options.type
     this._name = options.name
     this._description = options.description
-    this.parent = options.parent
+    this._databaseId = databaseId
+    this._parent = options.parent
   }
 
   get type() {
@@ -40,11 +43,15 @@ export default abstract class Reference {
       this._description = description
   }
 
-  setParent(parent: Container) {
-    this.parent = parent
+  get databaseId() {
+      return this._databaseId
   }
 
-  getParent() {
-    return this.parent
+  async fetchParent(db: Database) {
+    this._parent = await db.getParentOf(this)
+  }
+
+  get parent() {
+    return this._parent
   }
 }

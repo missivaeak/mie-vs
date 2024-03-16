@@ -9,17 +9,21 @@ import DebugAudio from '../screens/debug/DebugAudio'
 import DebugCamera from '../screens/debug/DebugCamera'
 
 import Home from '../screens/Home'
-import Folder from '../screens/Folder'
-import EditFolder from '../screens/EditFolder'
-import Place from '../screens/Place'
-import EditPlace from '../screens/EditPlace'
-import Scene from '../screens/Scene'
-import EditScene from '../screens/EditScene'
+import Folder from '../screens/folder/Folder'
+import EditFolder from '../screens/folder/EditFolder'
+import Place from '../screens/place/Place'
+import EditPlace from '../screens/place/EditPlace'
+import Scene from '../screens/scene/Scene'
+import EditScene from '../screens/scene/EditScene'
 import Loading from '../screens/Loading'
 import Spinner from '../components/Spinner'
 import GlobalContext from '../contexts/GlobalContext'
-import FolderSettingsButton from '../components/FolderSettingsButton'
+import FolderSettingsButton from '../components/folder/FolderSettingsButton'
+import PlaceSettingsButton from '../components/place/PlaceSettingsButton'
+import SceneSettingsButton from '../components/scene/SceneSettingsButton'
 import type { RootStackNavigationProp, RootStackParamList } from './types'
+import SnapPicture from '../screens/picture/SnapPicture'
+import ConfirmPicture from '../screens/picture/ConfirmPicture'
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
 
@@ -65,7 +69,7 @@ const DebugMenu = () => {
 
 export default () => {
   const [ isLoading, setIsLoading ] = useState(true)
-  const { globalState, setGlobalState } = useContext(GlobalContext)
+  const { globalState, setGlobalState, spinnerActive } = useContext(GlobalContext)
 
   if (isLoading) {
     return (
@@ -99,7 +103,8 @@ export default () => {
           name="Folder"
           component={Folder}
           options={{
-            title: 'todo: mappnamn'
+            title: 'unknown folder',
+            headerRight: FolderSettingsButton
           }}
           />
 
@@ -107,7 +112,7 @@ export default () => {
           name="EditPlace"
           component={EditPlace}
           options={{
-            title: 'todo: mappnamn'
+            title: 'Redigera plats'
           }}
           />
 
@@ -115,7 +120,8 @@ export default () => {
           name="Place"
           component={Place}
           options={{
-            title: 'todo: mappnamn'
+            title: 'unknown place',
+            headerRight: PlaceSettingsButton
           }}
           />
 
@@ -123,27 +129,43 @@ export default () => {
           name="EditScene"
           component={EditScene}
           options={{
-            title: 'todo: mappnamn'
+            title: 'Redigera scen'
           }}
           />
 
-        <Stack.Screen
-          name="Scene"
-          component={Scene}
-          options={{
-            title: 'todo: mappnamn'
-          }}
-          />
+          <Stack.Screen
+            name="Scene"
+            component={Scene}
+            options={{
+              title: 'unknown scene',
+              headerRight: SceneSettingsButton
+            }}
+            />
 
+          <Stack.Screen
+            name="SnapPicture"
+            component={SnapPicture}
+            options={{
+              title: 'Ta bild'
+            }}
+            />
+
+          <Stack.Screen
+            name="ConfirmPicture"
+            component={ConfirmPicture}
+            options={{
+              title: 'Bekräfta bild'
+            }}
+            />
         <Stack.Screen name="Gallery" component={DebugGallery} />
         <Stack.Screen name="Debug" component={DebugDefault} />
         <Stack.Screen name="Audio" component={DebugAudio} />
         <Stack.Screen name="Camera" component={DebugCamera} />
       </Stack.Navigator>
 
-      <DebugMenu />
+      {/* <DebugMenu /> */}
 
-      {globalState.spinnerActive ? <Spinner /> : <></>}
+      {spinnerActive ? <Spinner /> : null}
 
     </NavigationContainer>
   )

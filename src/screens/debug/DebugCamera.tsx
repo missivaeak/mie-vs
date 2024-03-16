@@ -12,7 +12,6 @@ import { useCameraDevice, useCameraPermission, Camera, CameraDevice } from 'reac
 
 import { useRef, useCallback, useMemo } from 'react'
 import { GestureResponderEvent } from 'react-native'
-import { PinchGestureHandler, PinchGestureHandlerGestureEvent, TapGestureHandler, GestureHandlerRootView } from 'react-native-gesture-handler'
 import {
   CameraProps,
   CameraRuntimeError,
@@ -22,12 +21,10 @@ import {
   VideoFile,
 } from 'react-native-vision-camera'
 // import { Camera } from 'react-native-vision-camera'
-import { CONTENT_SPACING, CONTROL_BUTTON_SIZE, MAX_ZOOM_FACTOR, SAFE_AREA_PADDING, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../constants/EnvVars'
-import Reanimated, { Extrapolate, interpolate, useAnimatedGestureHandler, useAnimatedProps, useSharedValue } from 'react-native-reanimated'
-import { useIsForeground } from '../../hooks/useIsForeground'
+// import { CONTENT_SPACING, CONTROL_BUTTON_SIZE, MAX_ZOOM_FACTOR, SAFE_AREA_PADDING, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../constants/EnvVars'
+import useIsForeground from '../../hooks/useIsForeground'
 import { StatusBarBlurBackground } from '../../components/StatusBarBlurBackground'
 import CaptureButton from '../../components/CaptureButton'
-import { PressableOpacity } from 'react-native-pressable-opacity'
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 import type { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { useIsFocused } from '@react-navigation/core'
@@ -36,6 +33,7 @@ import { RootStackParamList } from '../../navigation/Navigation'
 import ModalDefault from '../../components/ModalDefault'
 import Photographer from '../../services/Photographer'
 import GlobalContext from '../../contexts/GlobalContext'
+import EnvVars from '../../constants/EnvVars'
 
 // export default () => {
 //   const devices = Camera.getAvailableCameraDevices()
@@ -78,10 +76,10 @@ import GlobalContext from '../../contexts/GlobalContext'
 // }
 
 
-const ReanimatedCamera = Reanimated.createAnimatedComponent(Camera)
-Reanimated.addWhitelistedNativeProps({
-  zoom: true,
-})
+// const ReanimatedCamera = Reanimated.createAnimatedComponent(Camera)
+// Reanimated.addWhitelistedNativeProps({
+//   zoom: true,
+// })
 
 const SCALE_FULL_ZOOM = 3
 
@@ -89,7 +87,7 @@ const SCALE_FULL_ZOOM = 3
 export default function CameraPage(): React.ReactElement {
   const camera = useRef<Camera>(null)
   const [isCameraInitialized, setIsCameraInitialized] = useState(false)
-  const { globalState, setGlobalState } = useContext(GlobalContext)
+  const { globalState, setGlobalState, setSpinnerActive } = useContext(GlobalContext)
   const [ modalOpen, setModalOpen ] = useState(false)
   const [ modalContent, setModalContent] = useState({
     header: '',
@@ -128,12 +126,9 @@ export default function CameraPage(): React.ReactElement {
   const onPhotoCaptured = useCallback(
     async (photo: PhotoFile) => {
       const path = await Photographer.save(photo)
-      const imageRow = await globalState.database?.saveImage(path, 'jpg')
+      const imageRow = await globalState.database?.insertPicture(path, 'jpg')
 
-      setGlobalState({
-        ...globalState,
-        spinnerActive: false
-      })
+      setSpinnerActive(false)
 
       showModal('Media captured!', JSON.stringify(imageRow))
     },
@@ -196,21 +191,21 @@ const styles = StyleSheet.create({
   captureButton: {
     position: 'absolute',
     alignSelf: 'center',
-    bottom: SAFE_AREA_PADDING.paddingBottom,
+    bottom: EnvVars.safeAreaPadding.paddingBottom,
   },
-  button: {
-    marginBottom: CONTENT_SPACING,
-    width: CONTROL_BUTTON_SIZE,
-    height: CONTROL_BUTTON_SIZE,
-    borderRadius: CONTROL_BUTTON_SIZE / 2,
-    backgroundColor: 'rgba(140, 140, 140, 0.3)',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
+  // button: {
+  //   marginBottom: CONTENT_SPACING,
+  //   width: CONTROL_BUTTON_SIZE,
+  //   height: CONTROL_BUTTON_SIZE,
+  //   borderRadius: CONTROL_BUTTON_SIZE / 2,
+  //   backgroundColor: 'rgba(140, 140, 140, 0.3)',
+  //   justifyContent: 'center',
+  //   alignItems: 'center',
+  // },
   rightButtonRow: {
     position: 'absolute',
-    right: SAFE_AREA_PADDING.paddingRight,
-    top: SAFE_AREA_PADDING.paddingTop,
+    right: EnvVars.safeAreaPadding.paddingRight,
+    top: EnvVars.safeAreaPadding.paddingTop,
   },
   text: {
     color: 'white',

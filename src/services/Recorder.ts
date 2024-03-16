@@ -3,6 +3,8 @@ import AudioRecorderPlayer from "react-native-audio-recorder-player";
 import RNFetchBlob from "react-native-blob-util";
 // import { Recorder } from '@react-native-community/audio-toolkit'
 
+import EnvVars from "../constants/EnvVars";
+
 export default class {
   audioRecorderPlayer: Promise<AudioRecorderPlayer>
 
@@ -47,25 +49,27 @@ export default class {
     }
   }
 
-  async start(filename: string) {
-    const dirs = RNFetchBlob.fs.dirs
-    const path = Platform.select({
-      ios: `${filename}.m4a`,
-      android: `${dirs.CacheDir}/${filename}.mp4`
+  async start() {
+    const now = new Date()
+    const timestamp = now.getTime().toString()
+    // const dirs = RNFetchBlob.fs.dirs
+    let filename = Platform.select({
+      ios: `${timestamp}.m4a`,
+      android: `${timestamp}.mp4`
     })
-    const uri = await (await this.audioRecorderPlayer).startRecorder(path)
+    await (await this.audioRecorderPlayer).startRecorder(EnvVars.bareBaseDir + filename)
 
-    console.log("start recording:", uri)
-    console.log(await RNFetchBlob.fs.lstat(RNFetchBlob.fs.dirs.CacheDir))
+    // console.log("start recording:", uri)
+    // console.log(await RNFetchBlob.fs.lstat(RNFetchBlob.fs.dirs.CacheDir))
 
-    return uri
+    return filename ?? ''
   }
 
   async stop() {
     const result = await (await this.audioRecorderPlayer).stopRecorder()
 
-    console.log("stop recording:", result)
-    console.log(await RNFetchBlob.fs.lstat(RNFetchBlob.fs.dirs.CacheDir))
+    // console.log("stop recording:", result)
+    // console.log(await RNFetchBlob.fs.lstat(RNFetchBlob.fs.dirs.CacheDir))
 
     return result
   }

@@ -2,16 +2,27 @@ import * as React from 'react';
 import GlobalContext from './src/contexts/GlobalContext';
 import Navigation from './src/navigation/Navigation';
 import GlobalContextType from './src/types/GlobalContextType';
+import GlobalStateType from './src/types/GlobalStateType';
 
 const App = () => {
-  const [ globalState, setGlobalState ] = React.useState({
-    database: null,
-    spinnerActive: false
+  const [ modalOpen, setModalOpen ] = React.useState(false)
+  const [ spinnerActive, setSpinnerActive ] = React.useState(false)
+  const [ globalState, setGlobalState ] = React.useState<GlobalStateType>({
+    database: null
   })
+
+  const globalContext: GlobalContextType = {
+    globalState,
+    setGlobalState,
+    spinnerActive,
+    setSpinnerActive,
+    modalOpen,
+    setModalOpen
+  }
 
   return (
     <>
-      <GlobalContext.Provider value={{globalState, setGlobalState} as GlobalContextType}>
+      <GlobalContext.Provider value={globalContext}>
         <Navigation />
       </GlobalContext.Provider>
     </>

@@ -3,12 +3,12 @@
 import Reference from "./Reference"
 import ReferenceOptions from "./ReferenceOptions"
 
-export class Sound extends Reference {
+export default class Sound extends Reference {
     private _format: string
     private _source: string
 
-    constructor(options: ReferenceOptions, source: string, format="") {
-        super(options)
+    constructor(options: ReferenceOptions, source: string, databaseId: number, format="") {
+        super(options, databaseId)
         this._source = source
         this._format = format
     }

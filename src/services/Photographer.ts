@@ -10,7 +10,7 @@ export default class Photographer {
 
     await RNFetchBlob.fs.cp(
       photo.path,
-      EnvVars.baseDir + '/' + filename
+      EnvVars.baseDir + filename
       )
 
     return filename

@@ -4,14 +4,15 @@ import Reference from "./Reference"
 import ReferenceOptions from "./ReferenceOptions"
 import Scene from "./Scene"
 import Picture from "../Picture"
+import Database from "../../services/Database"
 
 export default class Container extends Reference {
     protected _scenes: Array<Scene>
     protected _picture: Picture
     protected _containers: Array<Container>
 
-    constructor(options: ReferenceOptions, picture: Picture, databaseId: number) {
-        super(options)
+    constructor(options: ReferenceOptions, databaseId: number, picture: Picture) {
+        super(options, databaseId)
         this._picture = picture
         this._scenes = []
         this._containers = []
@@ -58,7 +59,7 @@ export default class Container extends Reference {
 
     removeContainer(container: Container) {
         for (const index of this._containers.keys()) {
-            if (this._containers[index] === container) {
+            if (this._containers[index].databaseId === container.databaseId) {
                 this._containers.splice(index, 1)
                 return
             }
@@ -69,5 +70,13 @@ export default class Container extends Reference {
         const container = this._containers.splice(index, 1)[0]
 
         return container
+    }
+
+    removeAllContainers() {
+        this._containers = []
+    }
+
+    removeAllScenes() {
+        this._scenes = []
     }
 }

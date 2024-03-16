@@ -1,33 +1,54 @@
 // app/models/Picture.ts
+import EnvVars from "../constants/EnvVars"
+import RNFetchBlob from 'react-native-blob-util'
 
 export default class Picture {
-    private _format: string
-    private _source: string
-    private _databaseId: number
+  private _format: string
+  private _source: string
+  private _databaseId: number
 
-    constructor(source: string, databaseId: number, format="") {
-        this._source = source
-        this._databaseId = databaseId
-        this._format = format
+  constructor(source: string, databaseId: number, format="") {
+    this._source = source
+    this._databaseId = databaseId
+    this._format = format
+  }
+
+  async destroy() {
+    const path = EnvVars.baseDir + this._source
+    let exists: boolean
+
+    exists = await RNFetchBlob.fs.exists(path)
+
+    if (!exists) {
+      throw new Error(`Photo destruction failed, file ${path} does not exist.`)
     }
 
-    get source() {
-        return this._source
-    }
+    await RNFetchBlob.fs.unlink(path)
 
-    set source(source: string) {
-        this._source = source
-    }
+    exists = await RNFetchBlob.fs.exists(path)
 
-    get format() {
-        return this._format
+    if (exists) {
+      throw new Error('Photo destruction failed, file still exists.')
     }
+  }
 
-    set format(format: string) {
-        this._format = format
-    }
+  get source() {
+    return this._source
+  }
 
-    get databaseId() {
-        return this._databaseId
-    }
+  set source(source: string) {
+    this._source = source
+  }
+
+  get format() {
+    return this._format
+  }
+
+  set format(format: string) {
+    this._format = format
+  }
+
+  get databaseId() {
+    return this._databaseId
+  }
 }

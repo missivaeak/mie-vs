@@ -14,13 +14,10 @@ DROP TABLE IF EXISTS 'sound';
 DROP TABLE IF EXISTS 'setting';
 
 -- pictures
--- format should be 'png' for sources
--- starting with 'data:picture/png;base64,'
--- other formats may be implemented later
 CREATE TABLE 'picture' (
     'id' INTEGER PRIMARY KEY AUTOINCREMENT,
     'format' VARCHAR(20) NOT NULL,
-    'source' VARCHAR(20) NOT NULL
+    'source' VARCHAR(40) NOT NULL
 );
 
 -- containers
@@ -62,15 +59,12 @@ CREATE TABLE 'region' (
 );
 
 -- sounds
--- format should be 'mpeg' for sources
--- starting with 'data:audio/mpeg;base64,'
--- other formats might be implemented later
 CREATE TABLE 'sound' (
     'id' INTEGER PRIMARY KEY AUTOINCREMENT,
     'name' VARCHAR(20) NOT NULL,
     'description' VARCHAR(200) NOT NULL,
     'format' VARCHAR(20) NOT NULL,
-    'source' VARCHAR(20) NOT NULL
+    'source' VARCHAR(40) NOT NULL
 );
 
 -- settings
@@ -146,3 +140,74 @@ CREATE TABLE 'startingpoint_picture' (
 
     FOREIGN KEY ('picture_id') REFERENCES 'picture' ('id')
 );
+
+--
+-- Views
+--
+
+DROP VIEW IF EXISTS 'v_container_pictures';
+DROP VIEW IF EXISTS 'v_startingpoint_containers';
+DROP VIEW IF EXISTS 'v_container_containers';
+DROP VIEW IF EXISTS 'v_container_scenes';
+DROP VIEW IF EXISTS 'v_scene_pictures';
+
+CREATE VIEW 'v_container_pictures' AS
+    SELECT
+        p.format,
+        p.source,
+        pxc.picture_id,
+        pxc.container_id
+    FROM
+        picture_x_container as pxc,
+        picture as p
+    WHERE
+        p.id = pxc.picture_id;
+
+CREATE VIEW 'v_startingpoint_containers' AS
+    SELECT
+        c.id,
+        c.type,
+        c.name,
+        c.description
+    FROM
+        container AS c,
+        startingpoint_container AS sxc
+    WHERE
+        c.id = sxc.container_id;
+
+CREATE VIEW 'v_container_containers' AS
+    SELECT
+        c.id,
+        c.type,
+        c.name,
+        c.description,
+        cxc.parent_id
+    FROM
+        container AS c,
+        container_x_container AS cxc
+    WHERE
+        c.id = cxc.child_id;
+
+CREATE VIEW 'v_container_scenes' AS
+    SELECT
+        s.id,
+        s.name,
+        s.description,
+        cxs.container_id
+    FROM
+        scene AS s,
+        container_x_scene AS cxs
+    WHERE
+        s.id = cxs.scene_id;
+
+CREATE VIEW 'v_scene_pictures' AS
+    SELECT
+        p.format,
+        p.source,
+        pxs.picture_id,
+        pxs.scene_id
+    FROM
+        picture_x_scene AS pxs,
+        picture AS p
+    WHERE
+        p.id = pxs.picture_id;

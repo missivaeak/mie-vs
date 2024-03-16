@@ -1,9 +1,8 @@
+import { useRoute, useNavigation } from '@react-navigation/native'
 import { Pressable } from 'react-native'
-import { useRoute, useNavigation, RouteProp } from '@react-navigation/native'
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons'
-// import { RootStackParamList, ScreenProps } from '../navigation/Navigation'
-import { RootStackScreenProps, RootStackNavigationProp } from '../navigation/types'
-import { Container } from '../classes/references/Container'
+
+import type { RootStackScreenProps, RootStackNavigationProp } from '../../navigation/types'
 
 
 export default function FolderSettingsButton() {
@@ -14,7 +13,7 @@ export default function FolderSettingsButton() {
   return (
     <Pressable
       onPress={() => {
-        navigation.navigate('EditFolder', {folder})
+        navigation.push('EditFolder', {folder})
       }}
       >
       <MaterialCommunityIcon

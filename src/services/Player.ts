@@ -1,6 +1,8 @@
 import { Platform, PermissionsAndroid } from "react-native";
-import AudioRecorderPlayer from "react-native-audio-recorder-player";
+import AudioRecorderPlayer, { PlayBackType } from "react-native-audio-recorder-player";
 import RNFetchBlob from "react-native-blob-util";
+
+import EnvVars from "../constants/EnvVars";
 
 export default class Player {
   audioRecorderPlayer: AudioRecorderPlayer
@@ -9,7 +11,7 @@ export default class Player {
     this.audioRecorderPlayer = new AudioRecorderPlayer()
   }
 
-  static async play(filename: string, injectedAudioRecorderPlayer?: AudioRecorderPlayer) {
+  static async play(filename: string, callback?: () => void, injectedAudioRecorderPlayer?: AudioRecorderPlayer) {
     let audioRecorderPlayer: AudioRecorderPlayer
 
     if (injectedAudioRecorderPlayer) {
@@ -18,20 +20,26 @@ export default class Player {
       audioRecorderPlayer = new AudioRecorderPlayer()
     }
 
-    const dirs = RNFetchBlob.fs.dirs
-    const path = Platform.select({
-      ios: `${filename}.m4a`,
-      android: `${dirs.CacheDir}/${filename}.mp4`
-    })
+    await audioRecorderPlayer.stopPlayer()
+
+    const path = EnvVars.bareBaseDir + filename
     const uri = await audioRecorderPlayer.startPlayer(path)
 
-    console.log("start playing:", uri)
+    audioRecorderPlayer.removePlayBackListener()
+
+    if (callback) {
+      audioRecorderPlayer.addPlayBackListener((e: PlayBackType) => {
+        if (e.currentPosition === e.duration) {
+          callback()
+        }
+      })
+    }
 
     return uri
   }
 
-  async start(filename: string) {
-    const uri = await Player.play(filename, this.audioRecorderPlayer)
+  async start(filename: string, callback: () => void) {
+    const uri = await Player.play(filename, callback, this.audioRecorderPlayer)
 
     return uri
   }
@@ -39,7 +47,7 @@ export default class Player {
   async stop() {
     const result = await this.audioRecorderPlayer.stopPlayer()
 
-    console.log("stop recording:", result)
+    // console.log("stop playing:", result)
 
     return result
   }

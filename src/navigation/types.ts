@@ -1,6 +1,8 @@
 import type { NativeStackScreenProps, NativeStackNavigationProp } from '@react-navigation/native-stack'
 
-import { type Container } from '../classes/references/Container'
+import type Container from '../classes/references/Container'
+import type Scene from '../classes/references/Scene'
+import type Picture from '../classes/Picture'
 
 export type RootStackParamList = {
   Home: undefined
@@ -16,8 +18,18 @@ export type RootStackParamList = {
   Place: { place: Container }
   EditPlace: { place: Container}
 
-  Scene: { scene: Container}
-  EditScene: { scene: Container}
+  Scene: { scene: Scene }
+  EditScene: { scene: Scene }
+
+  SnapPicture: {
+    targetType: 'place' | 'folder' | 'scene'
+    parent: Container
+  }
+  ConfirmPicture: {
+    targetType: 'place' | 'folder' | 'scene'
+    picture: Picture
+    parent: Container
+  }
 }
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> =

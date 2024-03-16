@@ -2,28 +2,28 @@ import React, { useCallback, useRef, RefObject, useContext } from 'react'
 import { StyleSheet, View, ViewProps, Text, Pressable } from 'react-native'
 import { Camera, type PhotoFile } from 'react-native-vision-camera'
 
-import { CAPTURE_BUTTON_SIZE, SCREEN_HEIGHT, SCREEN_WIDTH } from '../constants/EnvVars'
 import GlobalContext from '../contexts/GlobalContext'
+import EnvVars from '../constants/EnvVars'
 
-const BORDER_WIDTH = CAPTURE_BUTTON_SIZE * 0.1
+const borderWidth = EnvVars.captureButtonSize * 0.1
 
 const styles = StyleSheet.create({
   flex: {
     flex: 1,
   },
-  wholeButton: {
-    width: CAPTURE_BUTTON_SIZE,
-    height: CAPTURE_BUTTON_SIZE,
-    borderRadius: CAPTURE_BUTTON_SIZE / 2,
-    borderWidth: BORDER_WIDTH,
+  button: {
+    width: EnvVars.captureButtonSize,
+    height: EnvVars.captureButtonSize,
+    borderRadius: EnvVars.captureButtonSize / 2,
+    borderWidth: borderWidth,
     borderColor: '#303030',
     backgroundColor: '#ffffff44',
   },
   pressedButton: {
-    width: CAPTURE_BUTTON_SIZE,
-    height: CAPTURE_BUTTON_SIZE,
-    borderRadius: CAPTURE_BUTTON_SIZE / 2,
-    borderWidth: BORDER_WIDTH,
+    width: EnvVars.captureButtonSize,
+    height: EnvVars.captureButtonSize,
+    borderRadius: EnvVars.captureButtonSize / 2,
+    borderWidth: borderWidth,
     borderColor: '#cccccc',
     backgroundColor: '#00000044',
   }
@@ -36,19 +36,18 @@ export default function CaptureButton({
   camera: RefObject<Camera>
   onPhotoCaptured: (photo: PhotoFile) => void
 }) {
-  const { globalState, setGlobalState} = useContext(GlobalContext)
+  const { globalState, setGlobalState, setSpinnerActive} = useContext(GlobalContext)
 
   const takePhoto = useCallback(async () => {
     try {
       if (camera.current == null) throw new Error('Camera ref is null!')
 
-      setGlobalState({
-        ...globalState,
-        spinnerActive: true
-      })
+      setSpinnerActive(true)
       // console.log('Taking photo...')
 
-      const photo = await camera.current.takePhoto({})
+      const photo = await camera.current.takePhoto({
+        enableShutterSound: false
+      })
 
       onPhotoCaptured(photo)
     } catch (e) {
@@ -62,7 +61,7 @@ export default function CaptureButton({
         onPressOut={takePhoto}
         >
         {({pressed}) => (
-          <View style={pressed ? styles.pressedButton : styles.wholeButton} />
+          <View style={pressed ? styles.pressedButton : styles.button} />
         )}
       </Pressable>
     </View>

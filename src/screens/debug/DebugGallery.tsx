@@ -8,18 +8,18 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { Text, Button, Image, FlatList, ScrollView } from 'react-native'
 
-import type ImageType from '../../types/ImageType'
+import type Picture from '../../classes/Picture'
 
 import GlobalContext from '../../contexts/GlobalContext'
 import EnvVars from '../../constants/EnvVars'
 
 export default () => {
-  const [images, setImages] = useState<Array<ImageType>>([])
+  const [pictures, setPictures] = useState<Array<Picture>>([])
   const { globalState, setGlobalState } = useContext(GlobalContext)
 
   useEffect(() => {
-    globalState?.database?.getImages().then((images): void => {
-      setImages(images)
+    globalState?.database?.getPictures().then((pictures): void => {
+      setPictures(pictures)
       return
     })
   }, [])
@@ -39,17 +39,18 @@ export default () => {
         // flexGrow: 0,
       }}>
 
-      {images.map((item)=> {
+      {pictures.map((picture)=> {
+        
         return (<Image
           style={{
             width: '30%',
             aspectRatio: 1,
-            resizeMode: item.format === 'png' ? 'contain' : 'cover',
+            resizeMode: picture.format === 'png' ? 'contain' : 'cover',
           }}
           source={{
-            uri: EnvVars.baseDir + item.source
+            uri: EnvVars.baseDir + picture.source
           }}
-          key={item.id}
+          key={picture.databaseId}
         />)
       })}
       <></>

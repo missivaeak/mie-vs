@@ -7,9 +7,9 @@ import EnvVars from "../constants/EnvVars"
 
 // default images
 const pictures = [
+  'house.png',
   'city.png',
   'hotel.png',
-  'house.png',
   'school.png',
   'shop.png',
 ]
@@ -21,24 +21,10 @@ export default class Initialiser {
         `bundle-assets://${pictures[i]}`, 'base64'
         )
       await RNFetchBlob.fs.writeFile(EnvVars.bareBaseDir + pictures[i], base64, 'base64')
-      await db.savePicture(pictures[i], 'png')
+      await db.insertPicture(pictures[i], 'png')
     }
 
-    console.log("1")
-
-    // await RNFetchBlob.fs.ls(cacheDir)
-    //     // files will an array contains filenames
-    //     .then((files) => {
-    //         console.log(files)
-    //     })
-    await db.setStartingPointPicture(3)
-    
-    
-    console.log("2")
-
+    await db.setStartingPointPicture(1)
     await db.setSetting("first_run", "false")
-
-    
-    console.log("3")
   }
 }
