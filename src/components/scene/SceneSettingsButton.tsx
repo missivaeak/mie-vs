@@ -17,7 +17,7 @@ export default function FolderSettingsButton() {
       }}
       >
       <MaterialCommunityIcon
-        name='movie-open-cog-outline'
+        name='sawtooth-wave'
         size={40}
         adjustsFontSizeToFit={true}
         />

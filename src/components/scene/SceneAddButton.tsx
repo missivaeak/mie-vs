@@ -9,7 +9,7 @@ export default function SceneAddButton(props: {callback: () => void}) {
       >
       <MaterialCommunityIcon
         style={styles.icon}
-        name='movie-open-plus-outline'
+        name='looks'
         adjustsFontSizeToFit={true}
         />
     </Pressable>

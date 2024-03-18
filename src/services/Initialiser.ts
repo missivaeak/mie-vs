@@ -2,6 +2,7 @@ import Database from "./Database"
 import RNFetchBlob from 'react-native-blob-util'
 
 import EnvVars from "../constants/EnvVars"
+import Picture from "../classes/Picture"
 // import RNFS from 'react-native-fs'
 // import images from '../assets/index'
 
@@ -16,6 +17,8 @@ const pictures = [
 
 export default class Initialiser {
   static async run(db: Database) {
+
+
     for (let i = 0; i < pictures.length; i++) {
       const base64 = await RNFetchBlob.fs.readFile(
         `bundle-assets://${pictures[i]}`, 'base64'
@@ -26,5 +29,16 @@ export default class Initialiser {
 
     await db.setStartingPointPicture(1)
     await db.setSetting("first_run", "false")
+
+    const pictureObj = await db.getPictures()
+    const startingPoint = await db.getStartingPoint()
+    console.log(pictureObj)
+
+    await db.addContainer({
+      type: 'place',
+      name: 'Hem',
+      description: '',
+      parent: startingPoint
+    }, pictureObj[4])
   }
 }

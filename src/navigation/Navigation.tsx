@@ -2,6 +2,7 @@ import { useContext, useState } from 'react'
 import { View, Button } from 'react-native'
 import { NavigationContainer, useNavigation } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import DebugDefault from '../screens/debug/DebugDefault'
 import DebugGallery from '../screens/debug/DebugGallery'
@@ -24,6 +25,7 @@ import SceneSettingsButton from '../components/scene/SceneSettingsButton'
 import type { RootStackNavigationProp, RootStackParamList } from './types'
 import SnapPicture from '../screens/picture/SnapPicture'
 import ConfirmPicture from '../screens/picture/ConfirmPicture'
+import NavigateBack from '../components/NavigateBack'
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
 
@@ -70,6 +72,7 @@ const DebugMenu = () => {
 export default () => {
   const [ isLoading, setIsLoading ] = useState(true)
   const { globalState, setGlobalState, spinnerActive } = useContext(GlobalContext)
+  const [iconSrc, setIconSrc] = useState<{scale: number, uri: string}>({scale: 1, uri: ''})
 
   if (isLoading) {
     return (
@@ -79,10 +82,24 @@ export default () => {
         />
     )
   }
+  MaterialCommunityIcon.getImageSource('gamma', 20, '#000').then((result) => {
+    return setIconSrc(result)
+  })
 
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator
+        screenOptions={({navigation, route}) => {
+          return {
+            headerLeft: () => (
+              <NavigateBack 
+                onPress={() => { navigation.goBack() }}
+                />
+            )
+          }
+        }}
+        >
+
         <Stack.Screen
           name="Home"
           component={Home}

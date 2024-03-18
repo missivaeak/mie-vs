@@ -109,7 +109,7 @@ export default function SoundRecorder(
         <CustomButton
           onPress={record}
           style={styles.recordIcon}
-          icon='record'
+          icon='light-recessed'
           />
         : null }
 
@@ -117,7 +117,7 @@ export default function SoundRecorder(
         <CustomButton
           onPress={stop}
           style={styles.stopIcon}
-          icon='stop'
+          icon='tournament'
           />
         : null }
 
@@ -126,17 +126,17 @@ export default function SoundRecorder(
           <CustomButton
             onPress={play}
             style={styles.playIcon}
-            icon='play'
+            icon='currency-sign'
             />
           <CustomButton
             onPress={record}
             style={styles.recordIcon}
-            icon='record'
+            icon='light-recessed'
             />
           <CustomButton
             onPress={confirm}
             style={styles.confirmIcon}
-            icon='check-circle-outline'
+            icon='currency-bdt'
             />
         </>
         : null }
@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   recordIcon: {
-    color: '#cc0000',
+    color: '#000000',
     fontSize: 100
   },
   stopIcon: {
@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
     fontSize: 100
   },
   confirmIcon: {
-    color: '#339933',
+    color: '#000000',
     fontSize: 75
   },
   pressed: {

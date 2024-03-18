@@ -48,10 +48,11 @@ function DeleteOverlay({
       onPress={callback ? () => {
         callback(region)
       }: undefined}
-      name='trash-can-outline'
+      name='hexagon-multiple-outline'
       style={[
         styles.deleteOverlay,
-        computedStyles.deleteOverlay
+        computedStyles.deleteOverlay,
+        {paddingLeft: 2}
       ]}
       />
   )

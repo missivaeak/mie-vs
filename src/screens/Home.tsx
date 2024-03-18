@@ -15,12 +15,18 @@ import StartingPointPicture from '../components/StartingPointPicture'
 import GlobalContext from '../contexts/GlobalContext'
 
 export default function Home({ navigation, route }: RootStackScreenProps<'Home'>) {
-  const [ startingPoint, setStartingPoint ] = useState<Container>()
+  // const [ startingPoint, setStartingPoint ] = useState<Container>()
+  const [ startingPlace, setStartingPlace ] = useState<Container>()
   const { globalState, setGlobalState } = useContext(GlobalContext)
 
   useEffect(() => {
-    globalState?.database?.getStartingPoint().then((result) => {
-      setStartingPoint(result)
+    // globalState?.database?.getStartingPoint().then((result) => {
+    //   setStartingPoint(result)
+    //   return
+    // })
+
+    globalState?.database?.getContainersOfStartingPoint().then((result) => {
+      setStartingPlace(result[0])
       return
     })
   }, [])
@@ -33,17 +39,20 @@ export default function Home({ navigation, route }: RootStackScreenProps<'Home'>
         alignItems: 'center',
       }}>
 
-      {startingPoint ? 
+      {startingPlace ? 
         <Pressable
+          // onPress={() => {
+          //   navigation.push('Folder', {folder: startingPoint})
+          // }}
           onPress={() => {
-            navigation.push('Folder', {folder: startingPoint})
+            navigation.push('Place', {place: startingPlace})
           }}
           style={{
             alignItems: 'center'
           }}
           >
 
-          <StartingPointPicture source={startingPoint.picture.source} />
+          <StartingPointPicture source={startingPlace.picture.source} />
 
           <Text>Börja använda appen.</Text>
         </Pressable>

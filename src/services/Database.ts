@@ -206,7 +206,7 @@ export default class Database {
     resultSet.forEach(result => {
       for (let index = 0; index < result.rows.length; index++) {
         const data = result.rows.item(index)
-        const picture = new Picture(data.source, data.databaseId, data.format)
+        const picture = new Picture(data.source, data.id, data.format)
         pictures.push(picture)
       }
     })
@@ -299,13 +299,13 @@ export default class Database {
 
   async getContainersOf(container: Container) {
     if (container.type === 'startingPoint') {
-      return await this.getContainersOfStartingPoint(container)
+      return await this.getContainersOfStartingPoint()
     }
 
     return await this.getContainersOfFolderOrPlace(container)
   }
 
-  async getContainersOfStartingPoint(startingPoint: Container) {
+  async getContainersOfStartingPoint() {
     const containers: Array<Container> = []
     const query = `
       SELECT

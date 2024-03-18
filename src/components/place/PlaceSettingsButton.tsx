@@ -17,7 +17,7 @@ export default function FolderSettingsButton() {
       }}
       >
       <MaterialCommunityIcon
-        name='store-cog-outline'
+        name='sawtooth-wave'
         size={40}
         adjustsFontSizeToFit={true}
         />

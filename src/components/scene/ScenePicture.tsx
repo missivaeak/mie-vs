@@ -27,7 +27,7 @@ export default function ScenePicture(props: {
       {props.deleteOverlay ?
         <MaterialCommunityIcon
           style={styles.deleteOverlay}
-          name='trash-can-outline'
+          name='hexagon-multiple-outline'
           />
       : <></>}
     </Pressable>

@@ -30,6 +30,8 @@ export type RootStackParamList = {
     picture: Picture
     parent: Container
   }
+
+  Default: undefined
 }
 
 export type RootStackScreenProps<T extends keyof RootStackParamList> =

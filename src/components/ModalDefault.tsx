@@ -29,7 +29,7 @@ export default function ModalDefault({children, setModalOpen}: {
                 style={{
                   color: '#000000'
                 }}
-                name="close-circle"
+                name="shoe-ballet"
                 size={40}
                 />
             </Pressable>
@@ -40,6 +40,12 @@ export default function ModalDefault({children, setModalOpen}: {
 
 const styles = StyleSheet.create({
   container: {
+    // position: 'absolute',
+    // left: 0,
+    // top: 0,
+    // transform: [
+    //   {translateX: }
+    // ]
   },
   modal: {
     // ...StyleSheet.absoluteFillObject,
