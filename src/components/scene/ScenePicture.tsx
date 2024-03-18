@@ -1,9 +1,10 @@
 
-import { Image, StyleProp, ImageStyle, StyleSheet, Pressable } from "react-native";
+import { Image, StyleProp, ImageStyle, StyleSheet, Pressable, Text } from "react-native";
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import Picture from "../../classes/Picture";
 import EnvVars from "../../constants/EnvVars";
+import styles from "../../constants/styles";
 
 export default function ScenePicture(props: {
   picture: Picture,
@@ -13,11 +14,11 @@ export default function ScenePicture(props: {
 }) {
   return (
     <Pressable
-      style={styles.button}
+      style={componentStyles.button}
       onPress={props.callback ? props.callback : null}
       >
       <Image
-        style={[styles.image, props.style]}
+        style={[componentStyles.image, props.style]}
         // style={styles.image}
         source={{
           uri: EnvVars.baseDir + props.picture.source
@@ -25,16 +26,21 @@ export default function ScenePicture(props: {
         />
       
       {props.deleteOverlay ?
-        <MaterialCommunityIcon
-          style={styles.deleteOverlay}
-          name='hexagon-multiple-outline'
-          />
+        // <MaterialCommunityIcon
+        //   style={styles.deleteOverlay}
+        //   name='hexagon-multiple-outline'
+        //   />
+          <Text
+            style={componentStyles.deleteOverlay}
+            >
+            Maer
+          </Text>
       : <></>}
     </Pressable>
   )
 }
 
-const styles = StyleSheet.create({
+const componentStyles = StyleSheet.create({
   button: {
     width: 120
   },
@@ -46,9 +52,9 @@ const styles = StyleSheet.create({
   },
   deleteOverlay: {
     position: 'absolute',
-    bottom: 0,
-    right: 0,
-    fontSize: 50,
+    bottom: 4,
+    right: 4,
+    fontSize: 20,
     color: '#fff',
     textShadowColor: '#000',
     textShadowRadius: 10,

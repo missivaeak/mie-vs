@@ -11,6 +11,7 @@ import EnvVars from "../../constants/EnvVars"
 import GlobalContext from "../../contexts/GlobalContext"
 import Container from "../../classes/references/Container"
 import ReferenceOptions from "../../classes/references/ReferenceOptions"
+import styles from "../../constants/styles"
 
 function ConfirmButton(props: {
   targetType: 'folder' | 'place' | 'scene',
@@ -92,13 +93,22 @@ function ConfirmButton(props: {
       }}
       >
       <Pressable
+        style={({pressed}) => [
+          styles.buttonLike,
+          pressed ? styles.pressed : null
+        ]}
         onPress={confirm}
         >
-        <MaterialCommunityIcon
+        <Text
+          style={{fontSize: 30}}
+          >
+            Foinå
+        </Text>
+        {/* <MaterialCommunityIcon
           color='#00880099'
           name='check-circle-outline'
           size={EnvVars.captureButtonSize}
-          />
+          /> */}
       </Pressable>
     </View>
   )

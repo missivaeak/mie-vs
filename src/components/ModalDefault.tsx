@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react'
 import { Text, View, Modal, StyleSheet, Pressable } from "react-native"
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons'
+import styles from '../constants/styles'
 
 export default function ModalDefault({children, setModalOpen}: {
   children: React.ReactNode,
@@ -12,33 +13,42 @@ export default function ModalDefault({children, setModalOpen}: {
 
   return (
     <Modal
-      style={styles.container}
+      style={componentStyles.container}
       animationType='slide'
       transparent={true}
       visible={true}
       >
         <View
-          style={styles.modal}
+          style={componentStyles.modal}
           >
             {children}
             <Pressable
-              style={styles.closeButton}
+              style={({pressed}) => [
+                styles.buttonLike,
+                pressed ? styles.buttonLikePressed : null,
+                componentStyles.closeButton
+              ]}
               onPress={closeModal}
               >
-              <MaterialCommunityIcon
-                style={{
-                  color: '#000000'
-                }}
-                name="shoe-ballet"
-                size={40}
-                />
+              <Text
+                style={{fontSize: 20}}
+                >
+                Miq
+              </Text>
+              {/* // <MaterialCommunityIcon
+              //   style={{
+              //     color: '#000000'
+              //   }}
+              //   name="shoe-ballet"
+              //   size={40}
+              //   /> */}
             </Pressable>
         </View>
     </Modal>
   )
 }
 
-const styles = StyleSheet.create({
+const componentStyles = StyleSheet.create({
   container: {
     // position: 'absolute',
     // left: 0,

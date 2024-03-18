@@ -4,10 +4,11 @@ import { Camera, type PhotoFile } from 'react-native-vision-camera'
 
 import GlobalContext from '../contexts/GlobalContext'
 import EnvVars from '../constants/EnvVars'
+import styles from '../constants/styles'
 
 const borderWidth = EnvVars.captureButtonSize * 0.1
 
-const styles = StyleSheet.create({
+const componentStyles = StyleSheet.create({
   flex: {
     flex: 1,
   },
@@ -56,13 +57,22 @@ export default function CaptureButton({
   }, [])
 
   return (
-    <View style={styles.flex}>
+    <View style={componentStyles.flex}>
       <Pressable
-        onPressOut={takePhoto}
+        onPress={takePhoto}
+        style={({pressed}) => [
+          styles.buttonLike,
+          pressed ? styles.pressed : null
+        ]}
         >
-        {({pressed}) => (
-          <View style={pressed ? styles.pressedButton : styles.button} />
-        )}
+        <Text
+          style={{fontSize: 30}}
+          >
+          Blyll
+        </Text>
+        {/* {({pressed}) => (
+          <View style={pressed ? componentStyles.pressedButton : componentStyles.button} />
+        )} */}
       </Pressable>
     </View>
   )

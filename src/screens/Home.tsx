@@ -13,6 +13,7 @@ import Container from '../classes/references/Container'
 import StartingPointPicture from '../components/StartingPointPicture'
 
 import GlobalContext from '../contexts/GlobalContext'
+import styles from '../constants/styles'
 
 export default function Home({ navigation, route }: RootStackScreenProps<'Home'>) {
   // const [ startingPoint, setStartingPoint ] = useState<Container>()
@@ -39,23 +40,29 @@ export default function Home({ navigation, route }: RootStackScreenProps<'Home'>
         alignItems: 'center',
       }}>
 
-      {startingPlace ? 
-        <Pressable
-          // onPress={() => {
-          //   navigation.push('Folder', {folder: startingPoint})
-          // }}
-          onPress={() => {
-            navigation.push('Place', {place: startingPlace})
-          }}
-          style={{
-            alignItems: 'center'
-          }}
-          >
+      {startingPlace ?
+        <>
+          <Pressable
+            // onPress={() => {
+            //   navigation.push('Folder', {folder: startingPoint})
+            // }}
+            onPress={() => {
+              navigation.push('Place', {place: startingPlace})
+            }}
+            style={({pressed}) => [
+              {
+                alignItems: 'center'
+              },
+              styles.buttonLike,
+              pressed ? styles.buttonLikePressed : null
+            ]}
+            >
 
-          <StartingPointPicture source={startingPlace.picture.source} />
+            <StartingPointPicture source={startingPlace.picture.source} />
+          </Pressable>
 
           <Text>Börja använda appen.</Text>
-        </Pressable>
+        </>
       : <></>}
     </View>
   )

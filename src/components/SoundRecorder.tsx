@@ -8,20 +8,23 @@ import type Sound from "../classes/references/Sound"
 import Recorder from "../services/Recorder"
 import Player from "../services/Player"
 import GlobalContext from "../contexts/GlobalContext"
+import styles from "../constants/styles"
 
 function CustomButton({onPress, icon, style}: CustomButtonType<void>) {
   return (<>
     <Pressable
       style={({pressed}) => [
-        pressed ? styles.pressed : {},
-        styles.button
+        styles.buttonLike,
+        pressed ? styles.buttonLikePressed : null,
+        {margin: 5}
       ]}
       onPress={onPress}
       >
-      <MaterialCommunityIcon
-        style={style}
-        name={icon}
-        />
+      <Text
+        style={{fontSize: 30}}
+        >
+        {icon}
+      </Text>
     </Pressable>
   </>)
 }
@@ -103,21 +106,21 @@ export default function SoundRecorder(
 
   return (
     <View
-      style={styles.wrapper}
+      style={componentStyles.wrapper}
       >
       { step === "ready" ?
         <CustomButton
           onPress={record}
-          style={styles.recordIcon}
-          icon='light-recessed'
+          style={componentStyles.recordIcon}
+          icon='Sisoem'
           />
         : null }
 
       { step === "recording" ?
         <CustomButton
           onPress={stop}
-          style={styles.stopIcon}
-          icon='tournament'
+          style={componentStyles.stopIcon}
+          icon='Glinmere'
           />
         : null }
 
@@ -125,18 +128,18 @@ export default function SoundRecorder(
         <>
           <CustomButton
             onPress={play}
-            style={styles.playIcon}
-            icon='currency-sign'
+            style={componentStyles.playIcon}
+            icon='Mo'
             />
           <CustomButton
             onPress={record}
-            style={styles.recordIcon}
-            icon='light-recessed'
+            style={componentStyles.recordIcon}
+            icon='Sisoem'
             />
           <CustomButton
             onPress={confirm}
-            style={styles.confirmIcon}
-            icon='currency-bdt'
+            style={componentStyles.confirmIcon}
+            icon='Foinå'
             />
         </>
         : null }
@@ -144,7 +147,7 @@ export default function SoundRecorder(
   )
 }
 
-const styles = StyleSheet.create({
+const componentStyles = StyleSheet.create({
   wrapper: {
     // flex: 1,
     flexDirection: 'row',
