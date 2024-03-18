@@ -95,8 +95,8 @@ function ConfirmButton(props: {
         onPress={confirm}
         >
         <MaterialCommunityIcon
-          color='#00880099'
-          name='check-circle-outline'
+          color='#000000'
+          name='currency-bdt'
           size={EnvVars.captureButtonSize}
           />
       </Pressable>

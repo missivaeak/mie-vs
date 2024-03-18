@@ -1,6 +1,7 @@
 import React, { useCallback, useRef, RefObject, useContext } from 'react'
 import { StyleSheet, View, ViewProps, Text, Pressable } from 'react-native'
 import { Camera, type PhotoFile } from 'react-native-vision-camera'
+import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import GlobalContext from '../contexts/GlobalContext'
 import EnvVars from '../constants/EnvVars'
@@ -26,6 +27,13 @@ const styles = StyleSheet.create({
     borderWidth: borderWidth,
     borderColor: '#cccccc',
     backgroundColor: '#00000044',
+  },
+  pressed: {
+    opacity: 0.65
+  },
+  cameraIcon: {
+    color: '#fff',
+    fontSize: 80
   }
 })
 
@@ -59,10 +67,15 @@ export default function CaptureButton({
     <View style={styles.flex}>
       <Pressable
         onPressOut={takePhoto}
+        style={({pressed}) => pressed ? styles.pressed : null}
         >
-        {({pressed}) => (
+        <MaterialCommunityIcon
+          style={styles.cameraIcon}
+          name='currency-rial'
+          />
+        {/* {({pressed}) => (
           <View style={pressed ? styles.pressedButton : styles.button} />
-        )}
+        )} */}
       </Pressable>
     </View>
   )

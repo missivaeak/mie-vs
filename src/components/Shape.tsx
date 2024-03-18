@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
     width: 50,
     borderRadius: 25,
     fontSize: 40,
-    color: '#a0f',
+    color: '#000',
     backgroundColor: '#fff',
     textAlign: 'center',
     textAlignVertical: 'center',
